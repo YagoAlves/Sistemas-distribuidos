@@ -3,7 +3,15 @@ package br.ufc.cliente;
 import java.util.Scanner;
 
 public class ClienteView {
-	
+
+	private static void login() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Digite seu nome");
+		String nome = scanner.nextLine();
+		System.out.println("Digite sua senha");
+		String senha = scanner.nextLine();
+		
+	}
 	private static int menu() {
 		ClienteProxy proxy = new ClienteProxy();
 		int opcao = 0;
@@ -19,7 +27,7 @@ public class ClienteView {
 			String jogos = null;
 			opcao = scanner.nextInt();
 			switch (opcao) {
-				case 1:	jogos = proxy.jogosDaRodada().toString();break;
+				case 1:	login();break;
 				//case 1:	jogos = proxy.jogosDaRodada().toString();break;
 				default: 
 					break;
