@@ -3,20 +3,32 @@ package br.ufc.cliente;
 import java.util.Scanner;
 
 public class ClienteView {
-	ClienteProxy proxy = new ClienteProxy();
+	
 	private static int menu() {
+		ClienteProxy proxy = new ClienteProxy();
 		int opcao = 0;
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Digite 1 para Jogos da Rodada \n"
-				+ "2 para Ranking dos Jogadores"
-				+ "3 para resultados preliminares");
+		String menu = "1 para Login\n"
+				+ "2 para cadastro\n"
+				+ "3 para sair\n";
+		String subMenu = "Digite 1 para Jogos da Rodada \n"
+				+ "2 para Ranking dos Jogadores\n"
+				+ "3 para resultados preliminares\n";
+		System.out.print(menu);
 		try {
+			String jogos = null;
 			opcao = scanner.nextInt();
+			switch (opcao) {
+				case 1:	jogos = proxy.jogosDaRodada().toString();break;
+				//case 1:	jogos = proxy.jogosDaRodada().toString();break;
+				default: 
+					break;
+			}
+			System.out.println(jogos);
 		} catch (Exception e) {
 			System.err.println("ERRO!");
 			e.printStackTrace();
 		}
-		System.out.print("Você digitou: " + opcao);
 		return opcao;
 	}
 	public static void main(String[] args) {

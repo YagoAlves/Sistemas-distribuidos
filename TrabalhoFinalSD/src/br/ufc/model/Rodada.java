@@ -3,20 +3,24 @@ package br.ufc.model;
 import java.util.List;
 
 public class Rodada {
+	private Integer id;
+	private List<Jogo> jogos;
 	
-	List<Jogo> jogos;
-	List<Time> times;
 	public List<Jogo> getJogos() {
 		return jogos;
 	}
 	public void setJogos(List<Jogo> jogos) {
 		this.jogos = jogos;
 	}
-	public List<Time> getTimes() {
-		return times;
+	public Integer getId() {
+		return id;
 	}
-	public void setTimes(List<Time> times) {
-		this.times = times;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-
+	@Override
+	public String toString() {
+		return "Rodada [jogos=" + jogos + "]";
+	}
+	
 }
