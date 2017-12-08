@@ -8,6 +8,7 @@ import com.google.gson.stream.JsonReader;
 
 import br.ufc.model.Jogador;
 import br.ufc.model.Mensagem;
+import br.ufc.model.Palpite;
 import br.ufc.model.Rodada;
 import br.ufc.servico.ServicoBolao;
 
@@ -20,14 +21,16 @@ public class ServidorEsqueleto {
 	
 	public String jogosDaRodada(String args) {
 		Gson gson = new Gson();
-		//JsonReader reader = new JsonReader(new StringReader(args));
-		//reader.setLenient(true);
-		//Rodada rodada = gson.fromJson(reader, Rodada.class);
 		String strRodada = gson.toJson(bolao.jogosDaRodada());
 		return strRodada;
 	}
-	public String enviarPalpite(String args) {
-		return null;
+	public String enviarPalpites(String args) {
+		Gson gson = new Gson();
+		JsonReader reader = new JsonReader(new StringReader(args));
+		reader.setLenient(true);
+		Palpite palpite = gson.fromJson(reader, Palpite.class);
+		String strPalpite = gson.toJson(bolao.enviarPalpite(palpite));
+		return strPalpite;
 	}
 	public String rankingJogadores(String args) {
 		return null;
@@ -36,9 +39,18 @@ public class ServidorEsqueleto {
 		return null;
 	}
 	public String login(String args) {
-		return null;
+		Gson gson = new Gson();
+		JsonReader reader = new JsonReader(new StringReader(args));
+		reader.setLenient(true);
+		Jogador jogador = gson.fromJson(reader, Jogador.class);
+		String strJogador = gson.toJson(bolao.login(jogador));
+		return strJogador;
 	}
 	public String cadastrarJogador(String args) {
-		return null;
-	}
+		Gson gson = new Gson();
+		JsonReader reader = new JsonReader(new StringReader(args));
+		reader.setLenient(true);
+		Jogador jogador = gson.fromJson(reader, Jogador.class);
+		String strJogador = gson.toJson(bolao.cadastrarJogador(jogador));
+		return strJogador;	}
 }

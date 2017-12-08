@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Teste {
-	public Jogador jogador1 = new Jogador();
-	public Jogador jogador2 = new Jogador();
-	public Jogador jogador3 = new Jogador();
+	public Jogador jogador1 = new Jogador("Afonso", "1234");
+	public Jogador jogador2 = new Jogador("Yago","teste");
+	public Jogador jogador3 = new Jogador("Teste","12");
 	public Jogo jogo = new Jogo();
 	public Rodada rodada = new Rodada();
 	public Time time1 = new Time();
@@ -14,9 +14,6 @@ public class Teste {
 	
 	public void inicio() {
 		
-		jogador1.setNome("Afonso");
-		jogador2.setNome("Teste");
-		jogador3.setNome("dsadsad");
 		time1.setNome("São Paulo");
 		time2.setNome("Flamengo");
 		jogo.setTime1(time1);

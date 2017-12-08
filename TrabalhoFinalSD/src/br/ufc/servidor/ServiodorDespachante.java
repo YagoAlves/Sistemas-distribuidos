@@ -18,7 +18,7 @@ public class ServiodorDespachante {
 			System.out.println("Executando: " + methodName);
 			method = objRef.getMethod(methodName, String.class);
 			resposta = (String) (method.invoke(objRef.newInstance(),
-					String.valueOf(msg.getArgumentos())));
+					msg.getArgumentos()));
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (IllegalAccessException e) {

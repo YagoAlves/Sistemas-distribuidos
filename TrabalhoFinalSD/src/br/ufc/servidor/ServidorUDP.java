@@ -18,8 +18,7 @@ public class ServidorUDP {
 	public ServidorUDP() {
 		try {
 			datagramSocket = new DatagramSocket(Constantes.PORTA);
-			ServiodorDespachante despachante = new ServiodorDespachante();
-			
+			ServiodorDespachante despachante = new ServiodorDespachante();			
 		} catch (SocketException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

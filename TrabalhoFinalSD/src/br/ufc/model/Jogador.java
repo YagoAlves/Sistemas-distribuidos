@@ -7,6 +7,10 @@ public class Jogador {
 	private String posiçao;
 	private String senha;
 	
+	public Jogador(String nome, String senha) {
+		this.nome = nome;
+		this.senha = senha;
+	}
 	public String getNome() {
 		return nome;
 	}
