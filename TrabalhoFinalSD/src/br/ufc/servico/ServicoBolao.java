@@ -8,13 +8,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
+
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonReader;
@@ -23,7 +22,6 @@ import br.ufc.model.Jogador;
 import br.ufc.model.Jogo;
 import br.ufc.model.Palpite;
 import br.ufc.model.Rodada;
-import br.ufc.model.Teste;
 import br.ufc.model.Time;
 
 public class ServicoBolao {
@@ -102,13 +100,11 @@ public class ServicoBolao {
 		Date dataAtua = new Date(System.currentTimeMillis());
 		Calendar c = new GregorianCalendar(2017,11,7);
 		for (Rodada rodada2 : list) {
-			System.out.println("ini "+ rodada2.getDataIni() +" " + c.getTime() + " fim " + rodada2.getDataFim());
 			if(rodada2.getDataIni().before(c.getTime()) && rodada2.getDataFim().after(c.getTime())) {
 				return rodada2;
 			}
 		}
-		return null;
-		
+		return null;	
 	}
 	
 	public Palpite enviarPalpite(Palpite palpite) {
@@ -147,13 +143,90 @@ public class ServicoBolao {
 	}
 	
 	public List<Jogador> rankingJogadores() {
+		String path = System.getProperty("user.dir");
+		String jogadoresBanco = null;		
+		Gson gson = new Gson();
+		try {
+			jogadoresBanco = lerArquivo(path+"/resource/jogadores.txt");
+			if(jogadoresBanco.length() == 0) {				
+				return null;
+			}
+			else {
+				JsonReader reader = new JsonReader(new StringReader(jogadoresBanco));
+				reader.setLenient(true);			
+				Jogador[] jogadoresVetor = gson.fromJson(reader, Jogador[].class);
+				List<Jogador> list = vetorToArray(jogadoresVetor);
+				Collections.sort(list);
+				return list;
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return null;
 	}
 	
-	public int resultadoPreliminar() {
-		return 0;
+	public List<Jogador> resultadoPreliminar() {
+		Rodada rodada = jogosDaRodada();
+		List<Jogo> jogosDaRodada = rodada.getJogos();
+		List<Jogador> jogadores = new ArrayList<Jogador>();
+		List<String> resultados = new ArrayList<String>(); 
+		for (Jogo jogo : jogosDaRodada) {
+			resultados.add(jogo.getResultado());
+			
+		}
+		return jogadoresDaRodada(rodada.getId(), resultados);
 	}
 
+	private List<Jogador> jogadoresDaRodada(int idRodada, List<String> resultados){
+		String path = System.getProperty("user.dir");
+		String palpitesBanco = null;
+		List<Jogador> jogadores = new ArrayList<Jogador>();
+		Gson gson = new Gson();
+		List<Palpite> palpites = new ArrayList<Palpite>();
+		try {
+			palpitesBanco = lerArquivo(path+"/resource/palpites.txt");
+											
+
+			JsonReader reader = new JsonReader(new StringReader(palpitesBanco));
+			reader.setLenient(true);			
+			
+			Palpite[] palpiteVetor = gson.fromJson(reader, Palpite[].class);
+			palpites = vetorToArray(palpiteVetor);
+			
+			for (Palpite palpite : palpites) {
+				if(palpite.getRodada() == idRodada) {
+					Jogador j = palpite.getJogador();
+					j.setParcial(0);
+					for (int i = 0; i < resultados.size(); i++) {
+						if(resultados.get(i).equals(palpite.getPalpite().get(i))) {
+							j.setParcial(j.getParcial()+1);
+						}
+					}
+					if(jogadores.contains(j)) {						
+						int x = jogadores.indexOf(j);
+						if(jogadores.get(x).getParcial() < j.getParcial()){
+							jogadores.get(x).setParcial(j.getParcial());
+						}						
+					}
+					else { 
+						jogadores.add(j);
+					}
+					
+				}
+				
+			}
+			Collections.sort(jogadores);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return jogadores;
+		
+	}
+	
 	private static String lerArquivo(String path) throws IOException {
 		Path caminho = Paths.get(path);
 		byte[] arquivo = Files.readAllBytes(caminho);
@@ -166,13 +239,12 @@ public class ServicoBolao {
 		buffWrite.write(txt);
 		buffWrite.close();
 	}
+	
 	public static void main(String[] args) {
 		//povoaBanco();
-		ServicoBolao serv = new ServicoBolao();
-		Rodada r = new Rodada();
-		r= serv.jogosDaRodada();
-		System.out.println(r);
+	
 	}
+	
 	private List<Jogador> vetorToArray(Jogador[] j) {
 		List<Jogador> list = new ArrayList<Jogador>();
 		for (int i = 0; i < j.length; i++) {
@@ -258,4 +330,5 @@ public class ServicoBolao {
 		}
 		
 	}
+
 }

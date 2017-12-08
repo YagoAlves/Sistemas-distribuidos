@@ -1,6 +1,8 @@
 package br.ufc.cliente;
 
 import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -64,11 +66,40 @@ public class ClienteProxy {
 	}
 	
 	public List<Jogador> rankingJogadores() {
-		return null;
+		Gson gson = new Gson(); 
+		Jogador j = new Jogador();
+		String jsonJogadores = gson.toJson(j);
+		
+		String login = doOperation("ServidorEsqueleto", "rankingJogadores", jsonJogadores);		
+		JsonReader reader = new JsonReader(new StringReader(login));
+		reader.setLenient(true);
+		Jogador[] jogador = gson.fromJson(reader, Jogador[].class);
+		
+		return vetorToArray(jogador);
 	}
-	public int resultadoPreliminar() {
-		return 0;
+	
+	public List<Jogador> resultadoPreliminar() {
+		Gson gson = new Gson(); 
+		Jogador j = new Jogador();
+		String jsonJogadores = gson.toJson(j);
+		
+		String login = doOperation("ServidorEsqueleto", "resultadoPreliminar", jsonJogadores);		
+		JsonReader reader = new JsonReader(new StringReader(login));
+		reader.setLenient(true);
+		Jogador[] jogador = gson.fromJson(reader, Jogador[].class);
+		
+		return vetorToArray(jogador);	
 	}
+	
+	private List<Jogador> vetorToArray(Jogador[] j) {
+		List<Jogador> list = new ArrayList<Jogador>();
+		for (int i = 0; i < j.length; i++) {
+			list.add(j[i]);
+		}
+		return list;
+	}
+	
+	
 	
 	public String doOperation(String objectRef, String method, String args) {
 		String str = empacotaMensagem(objectRef, method, args);		

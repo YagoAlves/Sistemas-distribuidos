@@ -1,6 +1,7 @@
 package br.ufc.cliente;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -59,7 +60,7 @@ public class ClienteView {
 		String subMenu = "1 para Jogos da Rodada \n"
 				+ "2 para Ranking dos Jogadores\n"
 				+ "3 para resultados preliminares\n"
-				+ "4 para sair\n";
+				+ "5 para sair\n";
 		System.out.print(subMenu);
 		try {			
 			opcao = scanner.nextInt();
@@ -70,7 +71,7 @@ public class ClienteView {
 		return opcao;
 	}
 	
-	public void mostrarRodada(Jogador j) {
+	public Rodada mostrarRodada(Jogador j) {
 		Rodada rodada = new Rodada();
 		rodada = proxy.jogosDaRodada();
 		if(rodada != null) {
@@ -86,13 +87,14 @@ public class ClienteView {
 				fazerAposta(rodada, j);
 			}
 		}
+		return rodada;
 	}
 	
 	public void fazerAposta(Rodada rodada, Jogador jogador) {
 		System.out.println("Escolha o time vencedor ou empate\n");
 		List<Jogo> jogos = rodada.getJogos();
 		Palpite palpite = new Palpite();
-		palpite.setRodada(rodada);
+		palpite.setRodada(rodada.getId());
 		palpite.setJogador(jogador);
 		Scanner scanner = new Scanner(System.in);
 		String resultado = "";
@@ -107,8 +109,20 @@ public class ClienteView {
 	}
 	
 	public void rankingJogadores() {
-		
+		List<Jogador> jogadores = proxy.rankingJogadores();
+		if(jogadores == null) return;
+		for (Jogador jogador : jogadores) {
+			System.out.println("Nome " + jogador.getNome() + " Quantidade de acertos "+ jogador.getAcertos());
+		}
 	}
+	public void resultadoPreliminar() {
+		List<Jogador> jogadores = proxy.resultadoPreliminar();
+		if(jogadores == null) return;
+		for (Jogador jogador : jogadores) {
+			System.out.println("Nome " + jogador.getNome() + " Quantidade de acertos ate o momento "+ jogador.getParcial());
+		}
+	}
+	
 	public static void main(String[] args) {
 		ClienteView view = new ClienteView();
 		int op = -1;
@@ -126,7 +140,7 @@ public class ClienteView {
 					view.rankingJogadores();
 					break; 
 				case 3:
-					
+					view.resultadoPreliminar();
 					break;
 				default: System.exit(1);
 					break;
@@ -134,5 +148,5 @@ public class ClienteView {
 			}
 		}
 		System.err.println("ERRO");
-	}
+	}	
 }

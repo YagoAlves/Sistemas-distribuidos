@@ -33,10 +33,14 @@ public class ServidorEsqueleto {
 		return strPalpite;
 	}
 	public String rankingJogadores(String args) {
-		return null;
+		Gson gson = new Gson();
+		String strJogadores = gson.toJson(bolao.rankingJogadores());	
+		return strJogadores;
 	}
 	public String resultadoPreliminar(String args) {
-		return null;
+		Gson gson = new Gson();
+		String strJogadores = gson.toJson(bolao.resultadoPreliminar());	
+		return strJogadores;
 	}
 	public String login(String args) {
 		Gson gson = new Gson();
@@ -52,5 +56,7 @@ public class ServidorEsqueleto {
 		reader.setLenient(true);
 		Jogador jogador = gson.fromJson(reader, Jogador.class);
 		String strJogador = gson.toJson(bolao.cadastrarJogador(jogador));
-		return strJogador;	}
+		return strJogador;	
+	}
+	
 }

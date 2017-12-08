@@ -1,1 +1,1 @@
-[{"nome":"Afonso","senha":"1234"},{"nome":"fssd","senha":"12344"}]
+[{"id":"9207J1512767195193","nome":"Afonso","acertos":3,"parcial":0,"senha":"1234"},{"id":"4167J1512767207000","nome":"Neto","acertos":2,"parcial":0,"senha":"4321"},{"id":"759J1512767232103","nome":"Teste","acertos":0,"parcial":0,"senha":"43"},{"id":"1958J1512776789977","nome":"Novo","acertos":0,"parcial":0,"senha":"1234"}]
