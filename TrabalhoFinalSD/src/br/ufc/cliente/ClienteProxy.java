@@ -29,6 +29,7 @@ public class ClienteProxy {
 		rodada = (Rodada) gson.fromJson(reader, Rodada.class);
 		return rodada;
 	}
+	
 	public Palpite enviarPalpite(Palpite palpite) {
 		Gson gson = new Gson(); 
 		String jsonPalpite = gson.toJson(palpite);
@@ -51,6 +52,7 @@ public class ClienteProxy {
 		jogador = (Jogador) gson.fromJson(reader, Jogador.class);
 		return jogador;
 	}
+	
 	public Jogador cadastrarJogador(Jogador jogador) {
 		Gson gson = new Gson(); 
 		String jsonJogadores = gson.toJson(jogador);
@@ -64,8 +66,8 @@ public class ClienteProxy {
 	public List<Jogador> rankingJogadores() {
 		return null;
 	}
-	public List<Jogador> resultadoPreliminar() {
-		return null;
+	public int resultadoPreliminar() {
+		return 0;
 	}
 	
 	public String doOperation(String objectRef, String method, String args) {

@@ -5,6 +5,10 @@ public class Time {
 	private Integer id;
 	private String nome;
 	
+	public Time(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 	public String getNome() {
 		return nome;
 	}

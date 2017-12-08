@@ -58,7 +58,8 @@ public class ClienteView {
 		Scanner scanner = new Scanner(System.in);
 		String subMenu = "1 para Jogos da Rodada \n"
 				+ "2 para Ranking dos Jogadores\n"
-				+ "3 para resultados preliminares\n";
+				+ "3 para resultados preliminares\n"
+				+ "4 para sair\n";
 		System.out.print(subMenu);
 		try {			
 			opcao = scanner.nextInt();
@@ -68,13 +69,14 @@ public class ClienteView {
 		}
 		return opcao;
 	}
+	
 	public void mostrarRodada(Jogador j) {
 		Rodada rodada = new Rodada();
 		rodada = proxy.jogosDaRodada();
 		if(rodada != null) {
 			List<Jogo> jogosDaRodada = rodada.getJogos();
 			for (Jogo jogo : jogosDaRodada) {
-				System.out.println(jogo.getTime1().getNome() + "x" + jogo.getTime2().getNome() +"\n");
+				System.out.println(jogo.getTime1().getNome() + " x " + jogo.getTime2().getNome());
 			}
 			Scanner scanner = new Scanner(System.in);
 			System.out.println("1 para fazer uma aposta\n"
@@ -85,6 +87,7 @@ public class ClienteView {
 			}
 		}
 	}
+	
 	public void fazerAposta(Rodada rodada, Jogador jogador) {
 		System.out.println("Escolha o time vencedor ou empate\n");
 		List<Jogo> jogos = rodada.getJogos();
@@ -102,6 +105,10 @@ public class ClienteView {
 		palpite.setPalpite(list);
 		proxy.enviarPalpite(palpite);
 	}
+	
+	public void rankingJogadores() {
+		
+	}
 	public static void main(String[] args) {
 		ClienteView view = new ClienteView();
 		int op = -1;
@@ -116,8 +123,12 @@ public class ClienteView {
 					view.mostrarRodada(jogador);
 					break;
 				case 2:
+					view.rankingJogadores();
+					break; 
+				case 3:
+					
 					break;
-				default:
+				default: System.exit(1);
 					break;
 				}
 			}

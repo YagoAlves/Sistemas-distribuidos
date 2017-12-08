@@ -1,11 +1,21 @@
 package br.ufc.model;
 
+import java.util.Date;
+
 public class Jogo{
-	
+
+	public Jogo(Integer id, Time time1, Time time2
+) {
+		super();
+		this.id = id;
+		this.time1 = time1;
+		this.time2 = time2;
+	}
 	private Integer id;
 	private Time time1;
 	private Time time2;
-	private String resultado;
+	private String resultado = "sem";
+	private Date date;
 	
 	public Time getTime1() {
 		return time1;
@@ -31,6 +41,7 @@ public class Jogo{
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	@Override
 	public String toString() {
 		return "Jogo [time1=" + time1 + ", time2=" + time2 + ", resultado="

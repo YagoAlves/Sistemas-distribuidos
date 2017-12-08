@@ -1,1 +1,0 @@
-[{"rodada":{"jogos":[{"time1":{"nome":"São Paulo"},"time2":{"nome":"Flamengo"}}]},"palpite":["empate"],"jogador":{"nome":"Afonso","senha":"1234"}}]
