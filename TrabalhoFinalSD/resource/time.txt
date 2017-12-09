@@ -1,0 +1,1 @@
+[{"id":0,"nome":"Atlético"},{"id":1,"nome":"Avaí"},{"id":2,"nome":"Bahia"},{"id":3,"nome":"Botafogo"},{"id":4,"nome":"Chapecoense"},{"id":5,"nome":"Corinthians"},{"id":6,"nome":"Coritiba"},{"id":7,"nome":"Cruzeiro"},{"id":8,"nome":"Flamengo"},{"id":9,"nome":"Fluminense"}]

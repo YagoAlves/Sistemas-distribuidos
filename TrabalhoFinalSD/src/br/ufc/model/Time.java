@@ -1,32 +1,29 @@
 package br.ufc.model;
 
-import java.util.List;
-
 public class Time {
 	
+	private Integer id;
 	private String nome;
-	private List<Jogador> jogadores;
-	private int pontos;
 	
+	public Time(Integer id, String nome) {
+		this.id = id;
+		this.nome = nome;
+	}
 	public String getNome() {
 		return nome;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public List<Jogador> getJogadores() {
-		return jogadores;
+	public Integer getId() {
+		return id;
 	}
-	public void setJogadores(List<Jogador> jogadores) {
-		this.jogadores = jogadores;
+	public void setId(Integer id) {
+		this.id = id;
 	}
-	public int getPontos() {
-		return pontos;
-	}
-	public void setPontos(int pontos) {
-		this.pontos = pontos;
+	@Override
+	public String toString() {
+		return "Time [nome=" + nome + "]";
 	}
 	
-	
-
 }

@@ -1,36 +1,92 @@
 package br.ufc.model;
 
-public class Jogador {
+import java.util.Random;
+
+public class Jogador implements Comparable<Jogador> {
 	
+	private String id;
 	private String nome;
-	private String posiçao;
-	private int numero_gols;
-	private int numero_assistencias;
+	private int acertos;
+	private int parcial;
+
+	public Jogador() {
+		super();
+		this.id = gerarNovoId();
+		this.acertos = 0;
+	}
+	public int getAcertos() {
+		return acertos;
+	}
+	public void setAcertos(int acertos) {
+		this.acertos = acertos;
+	}
+	private String senha;
 	
+	public Jogador(String nome, String senha) {
+		this.nome = nome;
+		this.senha = senha;
+	}
 	public String getNome() {
 		return nome;
+	}
+	public String getSenha() {
+		return senha;
+	}
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getPosiçao() {
-		return posiçao;
+	public String getId() {
+		return id;
 	}
-	public void setPosiçao(String posiçao) {
-		this.posiçao = posiçao;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public int getNumero_gols() {
-		return numero_gols;
+	public int getParcial() {
+		return parcial;
 	}
-	public void setNumero_gols(int numero_gols) {
-		this.numero_gols = numero_gols;
+	public void setParcial(int parcial) {
+		this.parcial = parcial;
 	}
-	public int getNumero_assistencias() {
-		return numero_assistencias;
+	public String gerarNovoId(){
+		Random random = new Random();
+		int ini = random.nextInt(10000);
+		return ini +"J"+ System.currentTimeMillis();
 	}
-	public void setNumero_assistencias(int numero_assistencias) {
-		this.numero_assistencias = numero_assistencias;
-	} 
+	@Override
+	public String toString() {
+		return "Jogador [id=" + id + ", nome=" + nome + ", acertos=" + acertos
+				+ ", senha=" + senha + "]";
+	}
+	@Override
+	public int compareTo(Jogador o) {
+		if(this.acertos > o.getAcertos()) {
+			return -1;
+		}
+		if(this.acertos < o.getAcertos()) {
+			return 1;
+		}
+		return 0;
+	}
+	
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Jogador other = (Jogador) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
+	}
 	
 }
 
